@@ -28,7 +28,7 @@ const SignupPage = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-md h-fit mx-auto p-6 bg-white rounded-xl shadow-sm  flex flex-col"
+      className="max-w-md h-screen mx-auto p-6 bg-white rounded-xl shadow-sm  justify-between flex flex-col"
     >
       <div className="flex-grow">
         <h2 className="text-[35px] font-bold text-left mb-4">
@@ -123,7 +123,6 @@ const SignupPage = () => {
             label="Company"
             placeholder="Marry Doe"
             type="company"
-            required
             {...register("company")}
           />
         </div>

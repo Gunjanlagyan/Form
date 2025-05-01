@@ -13,7 +13,7 @@ const HomePage = () => {
 
         <div className="space-y-3">
           <Link to="/signUp">
-            <button className="w-full bg-violet-800 text-white py-3 px-4 rounded-lg hover:bg-violet-900">
+            <button className="w-full mb-2 bg-violet-800 text-white py-3 px-4 rounded-lg hover:bg-violet-900">
               Create Account
             </button>
           </Link>
