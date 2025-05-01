@@ -103,11 +103,11 @@ const SignupPage = () => {
             {...register("password", {
               required: { value: true, message: "This field is required" },
               minLength: {
-                value: 6,
+                value: 8,
                 message: "Minimum 6 characters required",
               },
               maxLength: {
-                value: 12,
+                value: 24,
                 message: "Maximum 12 characters allowed",
               },
             })}
