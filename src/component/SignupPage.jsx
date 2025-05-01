@@ -104,11 +104,11 @@ const SignupPage = () => {
               required: { value: true, message: "This field is required" },
               minLength: {
                 value: 8,
-                message: "Minimum 6 characters required",
+                message: "Minimum 8 characters required",
               },
               maxLength: {
                 value: 24,
-                message: "Maximum 12 characters allowed",
+                message: "Maximum 24 characters allowed",
               },
             })}
           />
