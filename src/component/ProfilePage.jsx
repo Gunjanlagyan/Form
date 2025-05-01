@@ -64,6 +64,9 @@ const ProfilePage = () => {
           >
             Logout
           </button>
+          <p className="text-center text-gray-500 text-sm mt-20">
+            Please logout before leaving the page.
+          </p>
         </div>
       </div>
     </div>
