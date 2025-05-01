@@ -2,9 +2,12 @@ import { useForm } from "react-hook-form";
 import InputField from "./InputField";
 import authService from "../Appwrite/auth";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
+import { useState } from "react";
 
 const SignupPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -13,19 +16,24 @@ const SignupPage = () => {
 
   const onSubmit = async (data) => {
     try {
+      setLoading(true);
       const session = await authService.createAccount(data);
       if (session) {
         const userData = await authService.getCurrentUser();
         if (userData) {
+          setLoading(false);
           navigate("/profilePage");
         }
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error during signup:", error);
     }
   };
 
-  return (
+  return loading ? (
+    <Loader text="Creating Account" />
+  ) : (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="max-w-md h-screen mx-auto p-6 bg-white rounded-xl shadow-sm  justify-between flex flex-col"

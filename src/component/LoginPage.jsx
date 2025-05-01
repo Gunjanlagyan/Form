@@ -3,9 +3,11 @@ import InputField from "./InputField";
 import authService from "../Appwrite/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Loader from "./Loader";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
   const {
     register,
@@ -16,18 +18,25 @@ const LoginPage = () => {
   const onSubmit = async (data) => {
     try {
       setLoginError("");
+      setLoading(true);
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
         if (userData) {
+          setLoading(false);
           navigate("/profilePage");
         }
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error during login:", error);
       setLoginError("Invalid email or password");
     }
   };
+
+  if (loading) {
+    return <Loader text="Logging in..." />;
+  }
 
   return (
     <div className="max-w-md h-screen mx-auto p-6 bg-white rounded-xl shadow-sm  flex flex-col">
