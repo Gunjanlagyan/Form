@@ -8,6 +8,7 @@ import { useState } from "react";
 const SignupPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -16,17 +17,27 @@ const SignupPage = () => {
 
   const onSubmit = async (data) => {
     try {
+      setErrorMessage("");
       setLoading(true);
-      const session = await authService.createAccount(data);
-      if (session) {
-        const userData = await authService.getCurrentUser();
-        if (userData) {
-          setLoading(false);
-          navigate("/profilePage");
+      const userData = await authService.getCurrentUser();
+      if (!userData) {
+        const session = await authService.createAccount(data);
+        if (session) {
+          const userData = await authService.getCurrentUser();
+          if (userData) {
+            setLoading(false);
+            navigate("/profilePage");
+          }
         }
+      } else {
+        setLoading(false);
+        setErrorMessage(
+          "You are already logged in. Please logout before Login"
+        );
       }
     } catch (error) {
       setLoading(false);
+      setErrorMessage(error.message);
       console.error("Error during signup:", error);
     }
   };
@@ -167,6 +178,9 @@ const SignupPage = () => {
           )}
         </div>
       </div>
+      {errorMessage && (
+        <p className="text-sm text-red-600 mb-4 text-center">{errorMessage}</p>
+      )}
 
       <div className="mt-auto">
         <button
