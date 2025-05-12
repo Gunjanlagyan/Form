@@ -1,7 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import authService from "../Appwrite/auth";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const checkUser = async () => {
+      const user = await authService.getCurrentUser();
+      if (user) {
+        navigate("/profilePage");
+      } else {
+        navigate("/");
+      }
+    };
+
+    checkUser();
+  }, [navigate]);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div className="w-full min-h-screen max-w-md  bg-white rounded-lg shadow-lg p-6 sm:p-8 flex flex-col justify-end">
