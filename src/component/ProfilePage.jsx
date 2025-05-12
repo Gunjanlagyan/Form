@@ -14,6 +14,7 @@ const ProfilePage = () => {
         if (userData) {
           setUser(userData);
         } else {
+          navigate("/login");
           console.log("User is not logged in");
         }
       })
